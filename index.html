@@ -7,179 +7,306 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
         }
+        
+        /* Header */
+        .main-header {
+            background: linear-gradient(135deg, #d10000, #ff3333);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .main-header p {
+            margin: 5px 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* Watermark */
         .watermark {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 64px;
-            color: rgba(0, 0, 0, 0.1);
+            font-size: 80px;
+            color: rgba(255, 0, 0, 0.08);
             font-weight: bold;
             white-space: nowrap;
             pointer-events: none;
             z-index: -1;
         }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* Table */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
+        
         th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
             text-align: center;
         }
+        
         th {
-            background-color: #007bff;
+            background-color: #d10000;
             color: white;
+            font-weight: 500;
             text-transform: uppercase;
+            font-size: 14px;
         }
+        
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #fff5f5;
         }
+        
         tr:hover {
-            background-color: #d1ecf1;
+            background-color: #ffebeb;
         }
+        
+        /* Footer */
+        .main-footer {
+            background: linear-gradient(135deg, #d10000, #ff3333);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+        
+        .main-footer p {
+            margin: 0;
+        }
+        
+        /* Buttons */
         .button-container {
             margin: 20px 0;
             text-align: center;
         }
+        
         .tab-button {
-            padding: 10px 20px;
-            margin: 0 5px;
-            background-color: #007bff;
+            padding: 10px 25px;
+            margin: 0 10px;
+            background-color: #d10000;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 16px;
+            font-family: 'Kanit', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+        
         .tab-button:hover {
-            background-color: #0056b3;
+            background-color: #b00000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
+        
         .tab-button.active {
-            background-color: #0056b3;
-            font-weight: bold;
+            background-color: #b00000;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
+        
+        /* Table containers */
         .table-container {
             display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
+        
         .table-container.active {
             display: block;
         }
-        .loading {
+        
+        .table-title {
+            color: #d10000;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 500;
             text-align: center;
-            padding: 20px;
-            color: #666;
         }
-        .error-message {
-            color: #dc3545;
-            text-align: center;
-            padding: 20px;
+        
+        /* DataTables styling */
+        .dataTables_wrapper {
+            margin-top: 20px;
         }
-        /* ปรับสไตล์ DataTables */
+        
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             padding: 0.5em 1em;
-            margin: 0 2px;
+            margin: 0 5px;
             border: 1px solid #ddd;
-            background-color: #f9f9f9;
+            background-color: white;
             color: #333 !important;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background: #007bff;
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            background: #d10000 !important;
             color: white !important;
-            border: 1px solid #007bff;
+            border: 1px solid #d10000;
         }
+        
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            background: #0056b3;
+            background: #ff3333 !important;
             color: white !important;
-            border: 1px solid #0056b3;
+            border: 1px solid #ff3333;
         }
+        
         .dataTables_wrapper .dataTables_length,
         .dataTables_wrapper .dataTables_filter {
             display: none;
         }
+        
         .dataTables_wrapper .dataTables_info {
             padding: 10px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Result icons */
+        .win { color: #28a745; }
+        .draw { color: #ffc107; }
+        .loss { color: #dc3545; }
+        
+        /* Loading and error messages */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            padding: 40px;
+            font-weight: 500;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<!-- Header Section -->
+<header class="main-header">
+    <div class="container">
+        <h1>เพจตุ๊สกอร์สูง ข้อมูลสถิติบั้งไฟ 68</h1>
+     
+    </div>
+</header>
+
+<!-- Watermark -->
 <div class="watermark">เพจ ตุ๊สกอร์สูง</div>
 
-<div class="button-container">
-    <!-- <button class="tab-button active" data-table="stats-table">ตารางคะแนน</button> -->
-    <!-- <button class="tab-button" data-table="scores-table">10 อันดับทำเวลาสูงสุด</button> -->
-    <!-- <button class="tab-button" data-table="today-results-table">ผลวันนี้</button> -->
+<!-- Main Content -->
+<div class="container">
+    <!-- Button Tabs -->
+    <div class="button-container">
+        <button class="tab-button active" data-table="stats-table">ตารางคะแนน</button>
+        <button class="tab-button" data-table="scores-table">10 อันดับทำเวลาสูงสุด</button>
+        <button class="tab-button" data-table="today-results-table">ผลวันนี้</button>
+    </div>
+
+    <!-- ตารางคะแนน -->
+    <div id="stats-table" class="table-container active">
+        <h2 class="table-title">ตารางคะแนน บั้งไฟลีกสูงสุด ประเทศไทย</h2>
+        <table id="statsDataTable" class="display">
+            <thead>
+                <tr>
+                    <th>อันดับ</th>
+                    <th>ค่าย</th>
+                    <th>แข่ง</th>
+                    <th>ชนะ</th>
+                    <th>เสมอ</th>
+                    <th>แพ้</th>
+                    <th>คะแนน</th>
+                    <th>5 นัดหลังสุด</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ข้อมูลจะถูกเพิ่มโดย DataTables -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ตารางผลคะแนน -->
+    <div id="scores-table" class="table-container">
+        <h2 class="table-title">10 อันดับทำเวลาสูงสุด</h2>
+        <table id="scoresDataTable" class="display">
+            <thead>
+                <tr>
+                    <th>อันดับ</th>
+                    <th>ค่าย</th>
+                    <th>ราคา</th>
+                    <th>สกอร์</th>
+                    <th>สเตเดี้ยม</th>
+                    <th>วันที่</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ข้อมูลจะถูกเพิ่มโดย DataTables -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ตารางผลวันนี้ -->
+    <div id="today-results-table" class="table-container">
+        <h2 class="table-title">ผลการแข่งขันวันนี้</h2>
+        <table id="todayResultsDataTable" class="display">
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>ค่าย</th>
+                    <th>ราคา</th>
+                    <th>คะแนน</th>
+                    <th>ผล</th>
+                    <th>สนาม</th>
+                    <th>วันที่แข่ง</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ข้อมูลจะถูกเพิ่มโดย DataTables -->
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- ตารางตารางคะแนน -->
-<div id="stats-table" class="table-container active">
-    <h2>ตารางคะแนน บั้งไฟลีกสูงสุด ประเทศไทย (เพจตุ๊สกอร์สูง)</h2>
-    <table id="statsDataTable" class="display">
-        <thead>
-            <tr>
-                <th>อันดับ</th>
-                <th>ค่าย</th>
-                <th>แข่ง</th>
-                <th>ชนะ</th>
-                <th>เสมอ</th>
-                <th>แพ้</th>
-                <th>คะแนน</th>
-                <th>5 นัดหลังสุด</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- ข้อมูลจะถูกเพิ่มโดย DataTables -->
-        </tbody>
-    </table>
-</div>
-
-<!-- ตารางผลคะแนน -->
-<div id="scores-table" class="table-container">
-    <h2>10 อันดับทำเวลาสูงสุด</h2>
-    <table id="scoresDataTable" class="display">
-        <thead>
-            <tr>
-                <th>อันดับ</th>
-                <th>ค่าย</th>
-                <th>ราคา</th>
-                <th>สกอร์</th>
-                <th>สเตเดี้ยม</th>
-                <th>วันที่</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- ข้อมูลจะถูกเพิ่มโดย DataTables -->
-        </tbody>
-    </table>
-</div>
-
-<!-- ตารางผลวันนี้ -->
-<div id="today-results-table" class="table-container">
-    <h2>ผลวันนี้</h2>
-    <table id="todayResultsDataTable" class="display">
-        <thead>
-            <tr>
-                <th>ลำดับ</th>
-                <th>ค่าย</th>
-                <th>ราคา</th>
-                <th>คะแนน</th>
-                <th>ผล</th>
-                <th>สนาม</th>
-                <th>วันที่แข่ง</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- ข้อมูลจะถูกเพิ่มโดย DataTables -->
-        </tbody>
-    </table>
-</div>
+<!-- Footer Section -->
+<footer class="main-footer">
+    <div class="container">
+        <p>© 2025 เพจ ตุ๊สกอร์สูง - สถิติไก่ชนอัพเดททุกวัน</p>
+    </div>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
@@ -222,10 +349,10 @@ function initializeDataTable(tableId, columns) {
         };
     });
 
-    return $(tableId).DataTable({
+    return $('#' + tableId).DataTable({
         paging: true,
         pageLength: 10,
-        searching: false,
+        searching: true,
         ordering: true,
         info: true,
         responsive: true,
@@ -242,7 +369,8 @@ function initializeDataTable(tableId, columns) {
                 last: "หน้าสุดท้าย",
                 next: "ถัดไป",
                 previous: "ก่อนหน้า"
-            }
+            },
+            search: "ค้นหา:"
         }
     });
 }
@@ -250,6 +378,11 @@ function initializeDataTable(tableId, columns) {
 // ฟังก์ชันดึงข้อมูล
 async function fetchData(url, columns, dataTableInstance) {
     try {
+        // แสดงสถานะกำลังโหลด
+        $(dataTableInstance.table().body()).html(
+            '<tr><td colspan="' + columns.length + '" class="loading">กำลังโหลดข้อมูล...</td></tr>'
+        );
+        
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -262,7 +395,7 @@ async function fetchData(url, columns, dataTableInstance) {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
 
-        if (data.ret) {
+        if (data.ret && data.data && data.data.length > 0) {
             const rows = data.data.map((item, index) => {
                 const rowData = {};
                 
@@ -282,6 +415,16 @@ async function fetchData(url, columns, dataTableInstance) {
                     }
                     else if (key === 'ราคา' && item[key]) {
                         rowData[key] = item[key].replace(/\//g, ' / ');
+                    }
+                    else if (key === '5 นัดหลังสุด' && item[key]) {
+                        // จัดการผลลัพธ์ 5 นัดหลังสุด
+                        const results = item[key].split('');
+                        rowData[key] = results.map(res => {
+                            if (res === '✅') return '<span class="win">✅</span>';
+                            if (res === '⛔') return '<span class="draw">⛔</span>';
+                            if (res === '❌') return '<span class="loss">❌</span>';
+                            return res;
+                        }).join('');
                     }
                     else {
                         rowData[key] = item[key] ?? '-';
@@ -312,6 +455,11 @@ async function fetchData(url, columns, dataTableInstance) {
 // ฟังก์ชันดึงข้อมูลผลวันนี้
 async function fetchTodayResults(dataTableInstance) {
     try {
+        // แสดงสถานะกำลังโหลด
+        $(dataTableInstance.table().body()).html(
+            '<tr><td colspan="7" class="loading">กำลังโหลดข้อมูล...</td></tr>'
+        );
+        
         const response = await fetch('https://ekyc.dutchmill.co.th/bbrewardsapi/bf/GetResultToday', {
             method: 'GET',
             headers: {
@@ -324,12 +472,12 @@ async function fetchTodayResults(dataTableInstance) {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
 
-        if (data.ret && data.data.length > 0) {
+        if (data.ret && data.data && data.data.length > 0) {
             const rows = data.data.map((item, index) => {
                 const rowData = {
                     'ลำดับ': index + 1,
                     'ค่าย': item["ค่าย"] ?? '-',
-                    'ราคา': item["ราคา"] ?? '-',
+                    'ราคา': item["ราคา"] ? item["ราคา"].replace(/\//g, ' / ') : '-',
                     'คะแนน': item["คะแนน"] ?? '-',
                     'สนาม': item["สนาม"] ?? '-'
                 };
@@ -337,11 +485,11 @@ async function fetchTodayResults(dataTableInstance) {
                 // จัดการผลลัพธ์
                 const result = item["ผล"];
                 if (result === '✅') {
-                    rowData['ผล'] = '✅';
+                    rowData['ผล'] = '<span class="win">✅</span>';
                 } else if (result === '⛔') {
-                    rowData['ผล'] = '⛔';
+                    rowData['ผล'] = '<span class="draw">⛔</span>';
                 } else if (result === '❌') {
-                    rowData['ผล'] = '❌';
+                    rowData['ผล'] = '<span class="loss">❌</span>';
                 } else {
                     rowData['ผล'] = '-';
                 }
@@ -365,7 +513,7 @@ async function fetchTodayResults(dataTableInstance) {
         } else {
             dataTableInstance.clear().draw();
             $(dataTableInstance.table().body()).html(
-                '<tr><td colspan="7" class="error-message">ไม่พบข้อมูล</td></tr>'
+                '<tr><td colspan="7" class="error-message">ไม่พบข้อมูลการแข่งขันวันนี้</td></tr>'
             );
         }
     } catch (error) {
@@ -380,13 +528,13 @@ async function fetchTodayResults(dataTableInstance) {
 // เรียก API เมื่อหน้าโหลดเสร็จ
 $(document).ready(function() {
     // เริ่มต้น DataTables
-    statsDataTable = initializeDataTable('#statsDataTable', 
+    statsDataTable = initializeDataTable('statsDataTable', 
         ['อันดับ', 'ค่าย', 'แข่ง', 'ชนะ', 'เสมอ', 'แพ้', 'คะแนน', '5 นัดหลังสุด']);
     
-    scoresDataTable = initializeDataTable('#scoresDataTable', 
+    scoresDataTable = initializeDataTable('scoresDataTable', 
         ['อันดับ', 'ค่าย', 'ราคา', 'สกอร์', 'สเตเดี้ยม', 'วันที่']);
     
-    todayResultsDataTable = initializeDataTable('#todayResultsDataTable', 
+    todayResultsDataTable = initializeDataTable('todayResultsDataTable', 
         ['ลำดับ', 'ค่าย', 'ราคา', 'คะแนน', 'ผล', 'สนาม', 'วันที่แข่ง']);
     
     // ดึงข้อมูล
