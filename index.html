@@ -135,13 +135,29 @@
         }
         
         /* Table containers */
-        .table-container {
-            display: none;
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 119, 182, 0.1);
-        }
+.table-container {
+    display: none;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 119, 182, 0.1);
+    overflow-x: auto; /* เพิ่มการเลื่อนในแนวนอน */
+    max-width: 100%; /* ให้ขนาดตารางไม่เกินขอบ */
+}
+
+/* เพิ่ม @media query สำหรับหน้าจอเล็ก */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+        min-width: 600px; /* กำหนดความกว้างขั้นต่ำให้เหมาะสมกับมือถือ */
+    }
+    th, td {
+        padding: 8px 10px; /* ลด padding สำหรับหน้าจอเล็ก */
+    }
+    .tab-button {
+        font-size: 14px; /* ลดขนาดตัวอักษรในปุ่ม */
+    }
+}
         
         .table-container.active {
             display: block;
@@ -234,8 +250,8 @@
     <!-- Button Tabs -->
     <div class="button-container">
         <button class="tab-button active" data-table="stats-table">ตารางคะแนน</button>
-        <button class="tab-button" data-table="scores-table">ทำเวลาสูงสุด</button>
-        <button class="tab-button" data-table="today-results-table">ผลวันนี้</button>
+        <!-- <button class="tab-button" data-table="scores-table">ทำเวลาสูงสุด</button> -->
+        <!-- <button class="tab-button" data-table="today-results-table">ผลวันนี้</button> -->
     </div>
 
     <!-- ตารางคะแนน -->
